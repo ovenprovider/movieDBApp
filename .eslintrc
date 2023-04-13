@@ -1,0 +1,23 @@
+{ 
+  "root": true,
+  "extends": ["standard-with-typescript", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint/eslint-plugin",
+    "import",
+    "n",
+    "react",
+    "prettier"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "prettier/prettier": 2,
+    "semi": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/consistent-type-definitions": 0,
+    "@typescript-eslint/strict-boolean-expressions": 0,
+    "n/no-path-concat": 0
+  }
+}

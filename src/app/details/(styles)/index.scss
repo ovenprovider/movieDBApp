@@ -1,0 +1,47 @@
+.container {
+  flex: 1;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 16px;
+}
+
+.androidContainer {
+  margin-bottom: 16px;
+}
+
+.iosContainer {
+ margin-bottom: 32px;
+}
+
+.movieYearContainer {
+  margin-top: 8px;
+}
+
+.movieYearText {
+  font-size: 16px;
+  text-align: left;
+  color: gray;
+}
+
+.movieDirectorText {
+  @extend .movieYearText;
+}
+
+.poster {
+  height: 60%;
+}
+
+.posterError  {
+  @extend .poster;
+  justify-content: center;
+  align-items: center;
+}
+
+.plotLabelText {
+  font-size: 18px;
+  margin-top: 8px;
+}
+
+.plotTextContainer {
+  margin-top: 4px;
+}
