@@ -6,6 +6,7 @@ https://docs.expo.dev/get-started/installation/#expo-go-app-for-android-and-ios 
 
 Instructions to run:
 yarn install to install all the node modules
+touch .env and add OMBD_URL=http://www.omdbapi.com/?apikey= with an api key
 
 yarn start after that has finished to run just the prompts
 yarn android to run on android if you have android emulators setup
