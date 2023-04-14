@@ -3,20 +3,16 @@ import { useEffect, useState } from 'react'
 import { View, Text, SafeAreaView, Image } from 'react-native'
 
 // Components
-import { SearchBar } from '../components/SearchBar'
-import { MovieList } from '../components/MovieList'
+import { SearchBar, MovieList } from '../components'
 
 // Utils
-import { fetchData } from '../utils/fetch.utils'
-import { omdbSearchURL } from '../utils/url.utils'
-import { transformMovieData } from '../utils/transformers.utils'
+import { fetchData, omdbSearchURL, transformMovieData } from '../utils'
 
 // Styles
 import styles from './(styles)/index.scss'
 
 // Types
-import { type MoviesSearchResponse } from '../@types/omdbAPIResponse'
-import { type TransformedMovieData } from '../@types/transformedResponses'
+import { type MoviesSearchResponse, type TransformedMovieData } from '../@types'
 
 const Home = () => {
   const [searchBarInputValue, setSearchBarInputValue] = useState('')

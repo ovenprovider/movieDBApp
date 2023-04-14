@@ -1,6 +1,5 @@
 // Types
-import { type Movie } from '../@types/omdbAPIResponse'
-import { type TransformedMovieData } from '../@types/transformedResponses'
+import { type Movie, type TransformedMovieData } from '../@types'
 
 export const transformMovieData = (movies: Movie[]): TransformedMovieData[] => {
   return movies.map((movie) => ({

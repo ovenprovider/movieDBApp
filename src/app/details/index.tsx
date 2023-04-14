@@ -3,16 +3,17 @@ import { useEffect, useState } from 'react'
 import { View, Text, Image, ScrollView, Platform } from 'react-native'
 import { useRouter, useSearchParams } from 'expo-router'
 
+// Components
+import { Loader } from '../../components/Loader'
+
 // Styles
 import styles from './(styles)/index.scss'
 
 // Utils
-import { omdbURLSearchByID } from '../../utils/url.utils'
-import { fetchData } from '../../utils/fetch.utils'
+import { omdbURLSearchByID, fetchData } from '../../utils'
 
 // Types
-import { type MovieDetailsResponse } from '../../@types/omdbAPIResponse'
-import { Loader } from '../../components/Loader'
+import { type MovieDetailsResponse } from '../../@types'
 
 type DetailsRouteParams = {
   movieYear: string

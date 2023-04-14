@@ -1,4 +1,7 @@
+// Libraries
 import { TextInput } from 'react-native'
+
+// Styles
 import styles from './styles/SearchBar.scss'
 
 type Props = {

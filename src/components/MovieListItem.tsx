@@ -1,8 +1,10 @@
-import { useRouter } from 'expo-router'
+// Libraries
 import { Image, View, Text, Pressable } from 'react-native'
-
-import styles from './styles/MovieListItem.scss'
 import { useState } from 'react'
+import { useRouter } from 'expo-router'
+
+// Styles
+import styles from './styles/MovieListItem.scss'
 
 type Props = {
   movieTitle: string
