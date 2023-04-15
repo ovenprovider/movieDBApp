@@ -11,6 +11,11 @@ type MoviesSearchErrorResponse = {
 
 export type SearchType = 'movie' | 'series' | 'episode'
 
+export type GenericError = {
+  Response: 'False'
+  Error: string
+}
+
 export type MoviesSearchResponse = MoviesSearcSuccesshResponse | MoviesSearchErrorResponse
 
 export type Movie = {

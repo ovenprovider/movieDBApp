@@ -1,16 +1,17 @@
 .container {
   flex: 1;
-  margin-left: 8px;
-  margin-right: 8px;
-  margin-top: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 16px;
+  background-color: white;
 }
 
 .androidContainer {
-  margin-bottom: 16px;
+  padding-bottom: 16px;
 }
 
 .iosContainer {
- margin-bottom: 32;
+ padding-bottom: 32px;
 }
 
 .imdbRatingsContainer {
@@ -45,6 +46,7 @@
 
 .movieDirectorText {
   @extend .movieYearText;
+  margin-top: 4px;
 }
 
 .poster {

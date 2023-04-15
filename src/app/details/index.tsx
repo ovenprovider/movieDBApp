@@ -35,14 +35,17 @@ const handleImdbRating = (imdbRating: string) => {
 const Details = () => {
   const router = useRouter()
   const params = useSearchParams<DetailsRouteParams>()
-  const [isLoading, setIsLoading] = useState(true)
-  const [isImageError, setIsImageError] = useState(false)
-  const [isError, setIsError] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('Failed to load details')
+
   const [movieDirector, setMovieDirector] = useState('')
   const [moviePlot, setMoviePlot] = useState('')
   const [imdbRating, setImdbRating] = useState(0)
+
   const [showStarRatings, setShowStarRatings] = useState(true)
+
+  const [isLoading, setIsLoading] = useState(true)
+  const [isError, setIsError] = useState(false)
+  const [isImageError, setIsImageError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('Failed to load details')
 
   const { movieYear, moviePosterURL, movieimdbID } = params
 
@@ -58,11 +61,12 @@ const Details = () => {
         if (data.Response === 'False') {
           setIsError(true)
           setErrorMessage(data.Error)
-        } else {
-          setMovieDirector(data.Director)
-          setMoviePlot(data.Plot)
-          setImdbRating(handleImdbRating(data.imdbRating))
+          return
         }
+
+        setMovieDirector(data.Director)
+        setMoviePlot(data.Plot)
+        setImdbRating(handleImdbRating(data.imdbRating))
         setIsLoading(false)
       })
       .catch((e) => {
