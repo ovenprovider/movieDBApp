@@ -15,13 +15,29 @@ type Props = {
   onLoadMoreButtonPress: () => void
   hideLoadMoreButton: boolean
   isLoading: boolean
+  numberOfColumns: number
 }
 
-const renderItem = ({ item: { Title, Year, PosterURL, imdbID } }: { item: TransformedMovieData }) => {
-  return <MovieListItem movieTitle={Title} movieYear={Year} moviePosterURL={PosterURL} movieimdbID={imdbID} />
+const renderItem = ({
+  index,
+  item: { Title, Year, PosterURL, imdbID, numberOfColumns }
+}: {
+  item: TransformedMovieData
+  index: number
+}) => {
+  return (
+    <MovieListItem
+      movieTitle={Title}
+      movieYear={Year}
+      moviePosterURL={PosterURL}
+      movieimdbID={imdbID}
+      index={index}
+      numberOfColumns={numberOfColumns}
+    />
+  )
 }
 
-export const MovieList: React.FC<Props> = ({ movies, onLoadMoreButtonPress, hideLoadMoreButton, isLoading }) => {
+export const MovieList: React.FC<Props> = ({ movies, onLoadMoreButtonPress, hideLoadMoreButton, isLoading, numberOfColumns }) => {
   return (
     <>
       <FlatList
@@ -39,7 +55,7 @@ export const MovieList: React.FC<Props> = ({ movies, onLoadMoreButtonPress, hide
             <></>
           )
         }
-        numColumns={2}
+        numColumns={numberOfColumns}
         data={movies}
         renderItem={renderItem}
         horizontal={false}

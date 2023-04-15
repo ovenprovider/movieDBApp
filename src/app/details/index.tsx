@@ -1,10 +1,10 @@
 // Libraries
 import { useEffect, useState } from 'react'
-import { View, Text, Image, ScrollView, Platform } from 'react-native'
+import { View, Text, Image, ScrollView, Platform, TouchableWithoutFeedback } from 'react-native'
 import { useRouter, useSearchParams } from 'expo-router'
 
 // Components
-import { Loader } from '../../components/Loader'
+import { Loader, StarRatings } from '../../components'
 
 // Styles
 import styles from './(styles)/index.scss'
@@ -30,6 +30,8 @@ const Details = () => {
   const [errorMessage, setErrorMessage] = useState('Failed to load details')
   const [movieDirector, setMovieDirector] = useState('')
   const [moviePlot, setMoviePlot] = useState('')
+  const [imdbRating, setImdbRating] = useState(0)
+  const [showStarRatings, setShowStarRatings] = useState(true)
 
   const { movieYear, moviePosterURL, movieimdbID } = params
 
@@ -47,8 +49,13 @@ const Details = () => {
         } else {
           setMovieDirector(data.Director)
           setMoviePlot(data.Plot)
-        }
 
+          const parsedImdbRating = Number.parseFloat(data.imdbRating)
+          if (parsedImdbRating >= 0 && parsedImdbRating <= 10) {
+            // Convert to a 5 star rating
+            setImdbRating(parsedImdbRating)
+          }
+        }
         setIsLoading(false)
       })
       .catch((e) => {
@@ -76,11 +83,29 @@ const Details = () => {
           <Text>Image failed to load</Text>
         </View>
       )}
-      <View style={styles.movieYearContainer}>
-        <Text style={styles.movieYearText}>Year: {movieYear}</Text>
-        {isLoading ? <Loader /> : <Text style={styles.movieDirectorText}>Director: {movieDirector}</Text>}
+      <View style={styles.movieYearandRatingsContainer}>
+        <View style={styles.movieYearContainer}>
+          <Text style={styles.movieYearText}>Year: {movieYear}</Text>
+        </View>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            setShowStarRatings(!showStarRatings)
+          }}
+        >
+          <View style={styles.imdbRatingsContainer}>
+            <Text style={styles.imdbRatingsLabelText}>IMDB Rating:</Text>
+            <View style={styles.imdbRatings}>
+              {showStarRatings ? (
+                <StarRatings size={16} rating={imdbRating / 2} />
+              ) : (
+                <Text style={styles.imdbRatingText}>{imdbRating} out of 10</Text>
+              )}
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
-      <Text style={styles.plotLabelText}>{isError ? errorMessage : moviePlot}</Text>
+      {isLoading ? <Loader /> : <Text style={styles.movieDirectorText}>Director: {movieDirector}</Text>}
+      <Text style={styles.plotLabelText}>{isError ? errorMessage : 'Plot'}</Text>
       <ScrollView style={styles.plotTextContainer}>{isLoading ? <Loader /> : <Text>{moviePlot}</Text>}</ScrollView>
     </View>
   )

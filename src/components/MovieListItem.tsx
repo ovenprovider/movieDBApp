@@ -11,9 +11,11 @@ type Props = {
   movieYear: string
   moviePosterURL: string
   movieimdbID: string
+  index: number
+  numberOfColumns: number // Used to determine the first items in the columns so we can remove the margin at top
 }
 
-export const MovieListItem: React.FC<Props> = ({ movieTitle, movieYear, moviePosterURL, movieimdbID }) => {
+export const MovieListItem: React.FC<Props> = ({ movieTitle, movieYear, moviePosterURL, movieimdbID, index, numberOfColumns }) => {
   const router = useRouter()
   const encodedMoviePosterURL = encodeURIComponent(moviePosterURL)
   const [isImageError, setIsImageError] = useState(false)
@@ -26,7 +28,7 @@ export const MovieListItem: React.FC<Props> = ({ movieTitle, movieYear, moviePos
   }
 
   return (
-    <Pressable style={styles.container} onPress={handleOnPress}>
+    <Pressable style={[styles.container, index < numberOfColumns ? { marginTop: 0 } : {}]} onPress={handleOnPress}>
       {!isImageError ? (
         <Image
           style={styles.poster}

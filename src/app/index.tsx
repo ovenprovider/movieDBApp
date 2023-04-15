@@ -14,6 +14,8 @@ import styles from './(styles)/index.scss'
 // Types
 import { type MoviesSearchResponse, type TransformedMovieData } from '../@types'
 
+const NUMBER_OF_COLUMNS_TO_DISPLAY = 2
+
 const Home = () => {
   const [searchBarInputValue, setSearchBarInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -108,6 +110,7 @@ const Home = () => {
           hideLoadMoreButton={hideLoadMoreButton}
           isLoading={isLoading}
           onLoadMoreButtonPress={handleOnLoadMorePress}
+          numberOfColumns={NUMBER_OF_COLUMNS_TO_DISPLAY}
         />
       </SafeAreaView>
     </View>
