@@ -1,3 +1,5 @@
+A simple app using OMDb API using React Native, Typescript with Saas for styling
+
 Built using the Expo framework for quicker dev time since there was no native modules needed (or any that was not supported by expo)
 
 https://docs.expo.dev/get-started/installation/#expo-cli for installing expo cli
