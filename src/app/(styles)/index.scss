@@ -16,7 +16,7 @@
 }
 
 .titleSearchBar { 
-  flex: 5;
+  flex: 2.5;
 }
 
 .yearSearchBar {
@@ -31,10 +31,16 @@
   align-self: center;
 }
 
+.dropdownContainer {
+  flex: 1.5;
+  margin-left: 8px;
+}
+
 .movieList {
   flex: 1;
   margin-top: 16px;
   margin-bottom: 24px;
+  z-index: -1;
 }
 
 .movieListSearchErrorText {

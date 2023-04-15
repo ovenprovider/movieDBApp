@@ -27,6 +27,7 @@ const renderItem = ({
 }) => {
   return (
     <MovieListItem
+      key={imdbID}
       movieTitle={Title}
       movieYear={Year}
       moviePosterURL={PosterURL}

@@ -9,12 +9,14 @@ type MoviesSearchErrorResponse = {
   Error: string
 }
 
+export type SearchType = 'movie' | 'series' | 'episode'
+
 export type MoviesSearchResponse = MoviesSearcSuccesshResponse | MoviesSearchErrorResponse
 
 export type Movie = {
   Poster: string
   Title: string
-  Type: 'movie' | 'series' | 'episode'
+  Type: SearchType
   Year: string
   imdbID: string
 }

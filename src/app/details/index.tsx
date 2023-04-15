@@ -47,6 +47,7 @@ const Details = () => {
   const { movieYear, moviePosterURL, movieimdbID } = params
 
   const handleGetMoviesDetailsData = () => {
+    // In the occasion there is no imdb provided, we will return to the previous screen as to not waste a call
     if (!movieimdbID) {
       router.back()
       return

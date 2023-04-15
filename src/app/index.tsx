@@ -12,20 +12,32 @@ import { fetchData, omdbSearchURL, transformMovieData } from '../utils'
 import styles from './(styles)/index.scss'
 
 // Types
-import { type MoviesSearchResponse, type TransformedMovieData } from '../@types'
+import { type SearchType, type MoviesSearchResponse, type TransformedMovieData } from '../@types'
+import { Dropdown } from '../components/Dropdown'
 
 const NUMBER_OF_COLUMNS_TO_DISPLAY = 2
+const GENERIC_ERROR_MESSAGE = 'No results, please try another search term.'
 
+const DropdownItems = [
+  { label: 'Movie', value: 'movie' },
+  { label: 'Series', value: 'series' },
+  { label: 'Episode', value: 'episode' }
+]
 const Home = () => {
   const [searchTitle, setSearchTitle] = useState('')
   const [searchYear, setSearchYear] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [hideLoadMoreButton, setHideLoadMoreButton] = useState(true)
-  const [isNewSearch, setIsNewSearch] = useState(false)
-  const [isError, setIsError] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('No results, please try another search term.')
-
+  const [searchType, setSearchType] = useState<SearchType>('movie')
   const [page, setPage] = useState(1)
+
+  const [showDropdownMenu, setShowDropdownMenu] = useState(false)
+  const [hideLoadMoreButton, setHideLoadMoreButton] = useState(true)
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [isNewSearch, setIsNewSearch] = useState(false)
+
+  const [isError, setIsError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(GENERIC_ERROR_MESSAGE)
+
   const [movies, setMovies] = useState<TransformedMovieData[]>([])
 
   const resetUIState = () => {
@@ -33,7 +45,7 @@ const Home = () => {
     setHideLoadMoreButton(true)
     setMovies([])
     setIsError(false)
-    setErrorMessage('No results, please try another search term.')
+    setErrorMessage(GENERIC_ERROR_MESSAGE)
   }
 
   const handleOnLoadMorePress = () => {
@@ -59,7 +71,7 @@ const Home = () => {
   }
 
   const handleGetMoviesData = () => {
-    fetchData(omdbSearchURL(searchTitle, page, searchYear))
+    fetchData(omdbSearchURL(searchTitle, page, searchType, searchYear))
       .then((data: MoviesSearchResponse) => {
         if (data.Response === 'False') {
           setIsError(true)
@@ -75,6 +87,7 @@ const Home = () => {
         setIsLoading(false)
       })
       .catch((e) => {
+        // Should never reach here realistically, but you know
         console.error(e)
       })
   }
@@ -113,6 +126,15 @@ const Home = () => {
               onSubmitEditing={handleOnSubmit}
               keyboardType="number-pad"
               maxLength={4}
+            />
+          </View>
+          <View style={styles.dropdownContainer}>
+            <Dropdown
+              items={DropdownItems}
+              open={showDropdownMenu}
+              setOpen={setShowDropdownMenu}
+              value={searchType}
+              setValue={setSearchType}
             />
           </View>
         </View>
