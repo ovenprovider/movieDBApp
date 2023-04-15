@@ -22,10 +22,16 @@ const DropdownItems = [
   { label: 'Series', value: 'series' },
   { label: 'Episode', value: 'episode' }
 ]
+
 const Home = () => {
   const [searchTitle, setSearchTitle] = useState('')
   const [searchYear, setSearchYear] = useState('')
   const [searchType, setSearchType] = useState<SearchType>('movie')
+
+  const [previousSearchTitle, setPreviousSearchTitle] = useState('')
+  const [previousSearchYear, setPreviousSearchYear] = useState('')
+  const [previousSearchType, setPreviousSearchType] = useState<SearchType>('movie')
+
   const [page, setPage] = useState(1)
 
   const [showDropdownMenu, setShowDropdownMenu] = useState(false)
@@ -70,7 +76,13 @@ const Home = () => {
   }
 
   const handleGetMoviesData = () => {
-    fetchData(omdbSearchURL(searchTitle, page, searchType, searchYear))
+    fetchData(
+      omdbSearchURL(
+        isNewSearch
+          ? { title: searchTitle, page: 1, type: searchType, year: searchYear }
+          : { title: previousSearchTitle, page, type: previousSearchType, year: searchYear }
+      )
+    )
       .then((data: MoviesSearchResponse) => {
         if (data.Response === 'False') {
           setIsError(true)
@@ -94,6 +106,9 @@ const Home = () => {
   useEffect(() => {
     if (isNewSearch) {
       handleGetMoviesData()
+      setPreviousSearchTitle(searchTitle)
+      setPreviousSearchType(searchType)
+      setPreviousSearchYear(searchYear)
     }
   }, [isNewSearch])
 

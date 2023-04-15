@@ -4,7 +4,17 @@ import { OMBD_URL } from '@env'
 // Types
 import { type SearchType } from '../@types'
 
-export const omdbSearchURL = (title: string, page: number, type: SearchType, year?: string) => {
+export const omdbSearchURL = ({
+  title,
+  page,
+  type,
+  year
+}: {
+  title: string
+  page: number
+  type: SearchType
+  year?: string
+}) => {
   const url = `${OMBD_URL}&s=${title}&page=${page}&type=${type}`
   return year ? `${url}&y=${year}` : url
 }
