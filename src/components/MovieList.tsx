@@ -19,11 +19,11 @@ type Props = {
 }
 
 const renderItem = ({
-  index,
-  item: { Title, Year, PosterURL, imdbID, numberOfColumns }
+  item: { Title, Year, PosterURL, imdbID },
+  removeTopMargin
 }: {
   item: TransformedMovieData
-  index: number
+  removeTopMargin: boolean
 }) => {
   return (
     <MovieListItem
@@ -31,13 +31,18 @@ const renderItem = ({
       movieYear={Year}
       moviePosterURL={PosterURL}
       movieimdbID={imdbID}
-      index={index}
-      numberOfColumns={numberOfColumns}
+      removeTopMargin={removeTopMargin}
     />
   )
 }
 
-export const MovieList: React.FC<Props> = ({ movies, onLoadMoreButtonPress, hideLoadMoreButton, isLoading, numberOfColumns }) => {
+export const MovieList: React.FC<Props> = ({
+  movies,
+  onLoadMoreButtonPress,
+  hideLoadMoreButton,
+  isLoading,
+  numberOfColumns
+}) => {
   return (
     <>
       <FlatList
@@ -57,7 +62,7 @@ export const MovieList: React.FC<Props> = ({ movies, onLoadMoreButtonPress, hide
         }
         numColumns={numberOfColumns}
         data={movies}
-        renderItem={renderItem}
+        renderItem={({ item, index }) => renderItem({ item, removeTopMargin: index < numberOfColumns })}
         horizontal={false}
       />
     </>

@@ -21,6 +21,17 @@ type DetailsRouteParams = {
   movieimdbID: string
 }
 
+const handleImdbRating = (imdbRating: string) => {
+  if (imdbRating !== 'N/A') {
+    const parsedImdbRating = Number.parseFloat(imdbRating)
+    if (parsedImdbRating >= 0 && parsedImdbRating <= 10) {
+      // Convert to a 5 star rating
+      return parsedImdbRating
+    }
+  }
+  return -1
+}
+
 const Details = () => {
   const router = useRouter()
   const params = useSearchParams<DetailsRouteParams>()
@@ -49,12 +60,7 @@ const Details = () => {
         } else {
           setMovieDirector(data.Director)
           setMoviePlot(data.Plot)
-
-          const parsedImdbRating = Number.parseFloat(data.imdbRating)
-          if (parsedImdbRating >= 0 && parsedImdbRating <= 10) {
-            // Convert to a 5 star rating
-            setImdbRating(parsedImdbRating)
-          }
+          setImdbRating(handleImdbRating(data.imdbRating))
         }
         setIsLoading(false)
       })
@@ -89,16 +95,16 @@ const Details = () => {
         </View>
         <TouchableWithoutFeedback
           onPress={() => {
-            setShowStarRatings(!showStarRatings)
+            imdbRating >= 0 && setShowStarRatings(!showStarRatings)
           }}
         >
           <View style={styles.imdbRatingsContainer}>
             <Text style={styles.imdbRatingsLabelText}>IMDB Rating:</Text>
             <View style={styles.imdbRatings}>
-              {showStarRatings ? (
+              {showStarRatings && imdbRating >= 0 ? (
                 <StarRatings size={16} rating={imdbRating / 2} />
               ) : (
-                <Text style={styles.imdbRatingText}>{imdbRating} out of 10</Text>
+                <Text style={styles.imdbRatingText}>{imdbRating >= 0 ? `${imdbRating} out of 10` : 'N/A'}</Text>
               )}
             </View>
           </View>

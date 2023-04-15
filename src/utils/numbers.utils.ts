@@ -13,7 +13,7 @@ export const convertNumberToArray = (
   let newNumberToConvert = numberToConvert
 
   for (let i = 1; i <= numberOFElementsReturned; i++) {
-    if (newNumberToConvert < 0) {
+    if (newNumberToConvert <= 0) {
       arrayOfNumbers.push(0)
       newNumberToConvert--
       continue

@@ -38,7 +38,7 @@ type MovieDetailsSuccessResponse = {
   Poster: string
   Ratings: Rating[]
   Metascore: string
-  imdbRating: string
+  imdbRating: string | 'N/A'
   imdbVotes: string
   imdbID: string
   Type: string

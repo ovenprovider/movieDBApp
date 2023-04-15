@@ -1,9 +1,9 @@
 // Libraries
 import { useEffect, useState } from 'react'
-import { View, Text, SafeAreaView, Image } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
 
 // Components
-import { SearchBar, MovieList } from '../components'
+import { SearchBar, MovieList, SearchIcon } from '../components'
 
 // Utils
 import { fetchData, omdbSearchURL, transformMovieData } from '../utils'
@@ -17,7 +17,8 @@ import { type MoviesSearchResponse, type TransformedMovieData } from '../@types'
 const NUMBER_OF_COLUMNS_TO_DISPLAY = 2
 
 const Home = () => {
-  const [searchBarInputValue, setSearchBarInputValue] = useState('')
+  const [searchTitle, setSearchTitle] = useState('')
+  const [searchYear, setSearchYear] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [hideLoadMoreButton, setHideLoadMoreButton] = useState(true)
   const [isNewSearch, setIsNewSearch] = useState(false)
@@ -35,23 +36,30 @@ const Home = () => {
     setErrorMessage('No results, please try another search term.')
   }
 
-  const handleSearchBarOnChangeText = (text: string) => {
-    setSearchBarInputValue(text)
-    return text
-  }
-
   const handleOnLoadMorePress = () => {
     setIsLoading(true)
   }
 
-  const handleOnSubmitEditting = () => {
+  const handleOnSubmit = () => {
+    if (!searchTitle) {
+      setIsError(true)
+      setErrorMessage('Please enter a title.')
+      return
+    }
+
     resetUIState()
     setIsLoading(true)
     setIsNewSearch(true)
   }
 
+  const handleYearSearchBarOnChangeText = (text: string) => {
+    const regex = /[^0-9]/
+    if (regex.test(text)) return
+    setSearchYear(text)
+  }
+
   const handleGetMoviesData = () => {
-    fetchData(omdbSearchURL(searchBarInputValue, page))
+    fetchData(omdbSearchURL(searchTitle, page, searchYear))
       .then((data: MoviesSearchResponse) => {
         if (data.Response === 'False') {
           setIsError(true)
@@ -87,20 +95,29 @@ const Home = () => {
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <View style={styles.searchBarContainer}>
-          <SearchBar
-            textInputValue={searchBarInputValue}
-            placeholderText="Search by title"
-            onChangeText={handleSearchBarOnChangeText}
-            onSubmitEditing={handleOnSubmitEditting}
-          />
+          <View style={styles.titleSearchBar}>
+            <SearchBar
+              textInputValue={searchTitle}
+              placeholderText="Search by title"
+              onChangeText={(text: string) => {
+                setSearchTitle(text)
+              }}
+              onSubmitEditing={handleOnSubmit}
+            />
+          </View>
+          <View style={styles.yearSearchBar}>
+            <SearchBar
+              textInputValue={searchYear}
+              placeholderText="Year"
+              onChangeText={handleYearSearchBarOnChangeText}
+              onSubmitEditing={handleOnSubmit}
+              keyboardType="number-pad"
+              maxLength={4}
+            />
+          </View>
         </View>
-        <View style={styles.searchIcon}>
-          <Image
-            style={styles.searchIcon}
-            source={{
-              uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEU0lEQVRoQ+2ZWahVVRjHtUEcSi0DzahwKqdCbXgII4gk0hweRKzwITRNUHNAUksMzAohGh+yyIn0TVBTXywFU1PUypxQQ1GsiDItMyvL+v1kn7ht9jlnrX3OPZwLffBjn3vPWt9a/7XX8H3rNG/WxK15E+9/s2oKaM1gXANXwy/wUy0GpxIB19PBR2E43AM3pzp8lr/3wXpYDYcbQ1AeAbfTkRdhBFzVoFPf8vlH+AMU1zl5G4Uie/kwFz6sppAYAe1o+BUYl3Tczq6DNfAR/JzqmFPJNzMsEatw7ROYDAqq2EIFdKOltdAbzsPb8FJGp0t16CG+fA36wm/wFHxQqYIQAffTiHPYafExPAHf5WzYt/I8OJW0eTA/p6/L1coJ6EqZnXADvAuT4GIlDSZ1R/JcCm3gaViU12cpAW1xuh36wFswJW8jReoN4v8b4G94GDbn8V9KwHs4dMFuhMHwZ54GytRxUN6AU3AbXIhto5gAF+uX4IHUHX6IdRxR3nPCAZoN7nJRVkyAi9YDag68HOUxvvAdVPkczoG7ndtzsGUJ6Ejtb5JR78Lz12Bv+Qsup+oYmAavx7jJEuD+7I7jGhgf46yCsm7VW+BTuC/GT5YAT9chYJzj/KyFXZG88Wt5doD0qV60D1kCvqf0daCz6F2hArWFxezb2BrqJy2gPRXPwDFwQdXSXqWx6fAkLA1tOC3ARWvnd8G9oU6qVM4db0EiwpgpyNICelDrCEQvpqDWSheaydcL4dnkGeQyLeBGarmFHgCjxlqaQZ2B3kR4J7ThtIArqejp+xe4iI1TamUraOhxcAc0RgqyrF3oM2r2B0/I/UFeqlPoEG56ghHw8VCXWQJMF59LXqeLqhZmPn0y4daYBrME3I0Dd6HdYEpYC3PhGsiZ6ZluBluWAP/3VfIqjdnNdxvTvIo5CsZgDp5TONiKRaMGVgZYJt4D4FKwx/iCL1DF1HIVmKlFWTEBxiZ7oB88A29GeQ0vbN5hytoS3Laj745KZWQDcbgJLPMIVHsqGbTZeUMWcw5P4mgrl9RPwKOHikmG+/OO6BayK3jD4X2Sg2QY/SB49kRbOQE6NMFwGlXrLqcXvrxjMlU9Dd6pDgWvbKItRIBO3ea8yHJtrASP/ODDJumVHZ0Ks8BT3n3/luQ7sz5v8KJFhAqwHUdpCTh3fwcztvfhizLD1onvH4MZcBM4VZbBaFBUwRRhG667YIsRoFPvRx1Bp1SrpJWveW4DdxCnhBdfJkSG5nfBneCb07zYtf5BMHEx5vEcKFj0m4gVUGjIm+exMArKRa1eQzrnF0N6E6hYRF4BDQbt8gnqeeHFlHO7BXhFcgIMyw3SSllFIqohoEz/gr7OLaJeBKgyl4h6EpBLRL0JiBZRjwKiRNSrgGAR9SxAEQZ5Hn4NT2yDvwcKe1u9C0i/Ca/h/bHw3yv4piCgIMILBn+b/s/vB01FQNHT8H8BQYFCIxb6B7quzDGJddU4AAAAAElFTkSuQmCC'
-            }}
-          />
+        <View style={styles.searchIconContainer}>
+          <SearchIcon onPress={handleOnSubmit} />
         </View>
       </View>
       <SafeAreaView style={styles.movieList}>

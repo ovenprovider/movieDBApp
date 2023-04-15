@@ -1,7 +1,7 @@
 // Env
 import { OMBD_URL } from '@env'
 
-export const omdbSearchURL = (title: string, page: number, year?: number) => {
+export const omdbSearchURL = (title: string, page: number, year?: string) => {
   const url = `${OMBD_URL}&s=${title}&page=${page}&type=movie`
   return year ? `${url}&y=${year}` : url
 }

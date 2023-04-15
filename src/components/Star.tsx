@@ -11,7 +11,7 @@ type Props = {
 }
 // Used to adjust the width of the icon since in between certain ratios, the star does not display well
 const fixFillRatio = (fillRatio: number) => {
-  if (fillRatio > 0 && fillRatio <= 0.3) return fillRatio + 0.2
+  if (fillRatio >= 0.1 && fillRatio <= 0.3) return fillRatio + 0.2
   if (fillRatio >= 0.4 && fillRatio <= 0.45) return fillRatio + 0.1
   if (fillRatio >= 0.7 && fillRatio < 0.9) return fillRatio - 0.1
   if (fillRatio >= 0.9 && fillRatio < 1) return fillRatio - 0.2
