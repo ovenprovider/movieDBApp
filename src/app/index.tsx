@@ -80,7 +80,7 @@ const Home = () => {
       omdbSearchURL(
         isNewSearch
           ? { title: searchTitle, page: 1, type: searchType, year: searchYear }
-          : { title: previousSearchTitle, page, type: previousSearchType, year: searchYear }
+          : { title: previousSearchTitle, page, type: previousSearchType, year: previousSearchYear }
       )
     )
       .then((data: MoviesSearchResponse) => {
