@@ -27,12 +27,11 @@ const Home = () => {
   const [searchTitle, setSearchTitle] = useState('')
   const [searchYear, setSearchYear] = useState('')
   const [searchType, setSearchType] = useState<SearchType>('movie')
+  const [page, setPage] = useState(1)
 
   const [previousSearchTitle, setPreviousSearchTitle] = useState('')
   const [previousSearchYear, setPreviousSearchYear] = useState('')
   const [previousSearchType, setPreviousSearchType] = useState<SearchType>('movie')
-
-  const [page, setPage] = useState(1)
 
   const [showDropdownMenu, setShowDropdownMenu] = useState(false)
   const [hideLoadMoreButton, setHideLoadMoreButton] = useState(true)
@@ -63,7 +62,6 @@ const Home = () => {
       setErrorMessage('Please enter a title.')
       return
     }
-
     resetUIState()
     setIsLoading(true)
     setIsNewSearch(true)
@@ -87,12 +85,13 @@ const Home = () => {
         if (data.Response === 'False') {
           setIsError(true)
           setErrorMessage(data.Error)
-        } else {
-          const transformedMoviesData = transformMovieData(data.Search)
-          setHideLoadMoreButton(movies.length + data.Search.length >= data.totalResults)
-          setPage(page + 1)
-          setMovies(isNewSearch ? transformedMoviesData : movies.concat(transformedMoviesData))
+          return
         }
+
+        const transformedMoviesData = transformMovieData(data.Search)
+        setHideLoadMoreButton(movies.length + data.Search.length >= data.totalResults)
+        setPage(page + 1)
+        setMovies(isNewSearch ? transformedMoviesData : movies.concat(transformedMoviesData))
 
         setIsNewSearch(false)
         setIsLoading(false)
