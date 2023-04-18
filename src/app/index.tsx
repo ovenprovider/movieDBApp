@@ -1,5 +1,5 @@
 // Libraries
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { View, Text, SafeAreaView } from 'react-native'
 
 // Components
@@ -13,6 +13,7 @@ import styles from './(styles)/index.scss'
 
 // Types
 import { type SearchType, type MoviesSearchResponse, type TransformedMovieData } from '../@types'
+import { FavouritesContext } from '../contexts'
 
 const NUMBER_OF_COLUMNS_TO_DISPLAY = 2
 const GENERIC_ERROR_MESSAGE = 'No results, please try another search term.'
@@ -23,7 +24,10 @@ const DropdownItems = [
   { label: 'Episode', value: 'episode' }
 ]
 
+// @TODO: break up components into containers: screen file is becoming big
 const Home = () => {
+  const { addFavouriteMovie } = useContext(FavouritesContext)
+
   const [searchTitle, setSearchTitle] = useState('')
   const [searchYear, setSearchYear] = useState('')
   const [searchType, setSearchType] = useState<SearchType>('movie')
@@ -50,6 +54,10 @@ const Home = () => {
     setMovies([])
     setIsError(false)
     setErrorMessage(GENERIC_ERROR_MESSAGE)
+  }
+
+  const handleOnAddToFavouritesPress = (movie: TransformedMovieData) => {
+    addFavouriteMovie(movie)
   }
 
   const handleOnLoadMorePress = () => {
@@ -163,6 +171,7 @@ const Home = () => {
           isLoading={isLoading}
           onLoadMoreButtonPress={handleOnLoadMorePress}
           numberOfColumns={NUMBER_OF_COLUMNS_TO_DISPLAY}
+          onAddToFavouritesPress={handleOnAddToFavouritesPress}
         />
       </SafeAreaView>
     </View>

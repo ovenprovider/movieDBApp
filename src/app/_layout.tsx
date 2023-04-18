@@ -1,7 +1,10 @@
 // Libraries
 import { Stack } from 'expo-router'
 
-const RootLayout = () => {
+// Components
+import { Drawer, MenuIcon } from '../components'
+/*
+const MainStack = () => {
   return (
     <Stack>
       <Stack.Screen
@@ -9,7 +12,8 @@ const RootLayout = () => {
         options={{
           headerShown: true,
           title: 'Movies',
-          headerTitleAlign: 'center'
+          headerTitleAlign: 'center',
+          headerRight: (props) => <MenuIcon size={24} />
         }}
       />
       <Stack.Screen
@@ -21,7 +25,45 @@ const RootLayout = () => {
           headerTitleAlign: 'left'
         })}
       />
+      <Stack.Screen
+        name="favourites/index"
+        options={{
+          headerShown: true,
+          title: 'Favourites',
+          headerTitleAlign: 'left'
+        }}
+      />
     </Stack>
+  )
+}
+*/
+const RootLayout = () => {
+  return (
+    <Drawer>
+      <Drawer.Screen
+        name="index"
+        options={{
+          title: 'Search',
+          drawerLabel: 'Search',
+          headerTitleAlign: 'center'
+        }}
+      />
+      <Drawer.Screen
+        name="favourites/index"
+        options={{
+          title: 'Favourites',
+          headerTitleAlign: 'center'
+        }}
+      />
+      <Drawer.Screen
+        name="details/index"
+        options={{
+          // @TODO: find the proper way to remove this from the drawer, this is just a little FE hack
+          drawerItemStyle: { display: 'none' },
+          headerTitleAlign: 'center'
+        }}
+      />
+    </Drawer>
   )
 }
 

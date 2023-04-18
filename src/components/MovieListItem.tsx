@@ -3,6 +3,9 @@ import { Image, View, Text, Pressable } from 'react-native'
 import { useState } from 'react'
 import { useRouter } from 'expo-router'
 
+// Components
+import { HeartIcon } from './HeartIcon'
+
 // Styles
 import styles from './styles/MovieListItem.scss'
 
@@ -12,6 +15,7 @@ type Props = {
   moviePosterURL: string
   movieimdbID: string
   removeTopMargin?: boolean
+  onAddToFavouritePress?: () => void
 }
 
 export const MovieListItem: React.FC<Props> = ({
@@ -19,7 +23,8 @@ export const MovieListItem: React.FC<Props> = ({
   movieYear,
   moviePosterURL,
   movieimdbID,
-  removeTopMargin
+  removeTopMargin,
+  onAddToFavouritePress
 }) => {
   const router = useRouter()
   const encodedMoviePosterURL = encodeURIComponent(moviePosterURL)
@@ -52,6 +57,11 @@ export const MovieListItem: React.FC<Props> = ({
       <View style={styles.movieTitleContainer}>
         <Text style={styles.movieTitleText}>{movieTitle}</Text>
         <Text>{movieYear}</Text>
+        <Pressable onPress={onAddToFavouritePress}>
+          <Text style={styles.addToFavouritesText}>
+            Add to Favourites <HeartIcon size={14} />
+          </Text>
+        </Pressable>
       </View>
     </Pressable>
   )
