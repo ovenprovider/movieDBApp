@@ -12,21 +12,21 @@ import { type TransformedMovieData } from '../@types/transformedResponses'
 
 type Props = {
   movies: TransformedMovieData[]
-  onLoadMoreButtonPress: () => void
+  loadMoreOnPress: () => void
   hideLoadMoreButton: boolean
   isLoading: boolean
   numberOfColumns: number
-  onAddToFavouritesPress?: (movie: TransformedMovieData) => void
+  addToFavouritesOnPress?: (movie: TransformedMovieData) => void
 }
 
 const renderItem = ({
   item: { Title, Year, PosterURL, imdbID },
   removeTopMargin,
-  onAddToFavouritesPress
+  addToFavouritesOnPress
 }: {
   item: TransformedMovieData
   removeTopMargin: boolean
-  onAddToFavouritesPress: () => void
+  addToFavouritesOnPress: () => void
 }) => {
   return (
     <MovieListItem
@@ -36,18 +36,18 @@ const renderItem = ({
       moviePosterURL={PosterURL}
       movieimdbID={imdbID}
       removeTopMargin={removeTopMargin}
-      onAddToFavouritePress={onAddToFavouritesPress}
+      onAddToFavouritePress={addToFavouritesOnPress}
     />
   )
 }
 
 export const MovieList: React.FC<Props> = ({
   movies,
-  onLoadMoreButtonPress,
+  loadMoreOnPress,
   hideLoadMoreButton,
   isLoading,
   numberOfColumns,
-  onAddToFavouritesPress
+  addToFavouritesOnPress
 }) => {
   return (
     <>
@@ -58,7 +58,7 @@ export const MovieList: React.FC<Props> = ({
               <Button
                 title={!isLoading ? 'Load more' : 'Loading...'}
                 onPress={() => {
-                  !isLoading && onLoadMoreButtonPress()
+                  !isLoading && loadMoreOnPress()
                 }}
               />
             </View>
@@ -72,8 +72,8 @@ export const MovieList: React.FC<Props> = ({
           renderItem({
             item,
             removeTopMargin: index < numberOfColumns,
-            onAddToFavouritesPress: () => {
-              onAddToFavouritesPress?.(item)
+            addToFavouritesOnPress: () => {
+              addToFavouritesOnPress?.(item)
             }
           })
         }

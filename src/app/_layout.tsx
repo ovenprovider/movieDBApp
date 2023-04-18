@@ -58,6 +58,7 @@ const RootLayout = () => {
       <Drawer.Screen
         name="details/index"
         options={{
+          title: 'Details',
           // @TODO: find the proper way to remove this from the drawer, this is just a little FE hack
           drawerItemStyle: { display: 'none' },
           headerTitleAlign: 'center'

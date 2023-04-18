@@ -38,7 +38,7 @@ const Favourites = () => {
         movies={movies}
         hideLoadMoreButton={hideLoadMoreButton}
         isLoading={false}
-        onLoadMoreButtonPress={handleOnLoadMorePress}
+        loadMoreOnPress={handleOnLoadMorePress}
         numberOfColumns={NUMBER_OF_COLUMNS_TO_DISPLAY}
       />
     </SafeAreaView>
