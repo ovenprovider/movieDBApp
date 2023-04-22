@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 
 // Styles
-import styles from './styles/SearchBar.scss'
+import { styles } from './styles/SearchBar.styles'
 
 type Props = {
   textInputValue: string

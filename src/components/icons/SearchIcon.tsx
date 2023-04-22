@@ -2,7 +2,7 @@
 import { Pressable, Image, type GestureResponderEvent } from 'react-native'
 
 // Styles
-import styles from './styles/SearchIcon.scss'
+import { styles } from './styles/SearchIcon.styles'
 
 type Props = {
   onPress?: (event: GestureResponderEvent) => void

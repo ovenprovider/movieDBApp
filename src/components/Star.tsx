@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 
 // Styles
-import styles from './styles/Star.scss'
+import { styles } from './styles/Star.styles'
 
 type Props = {
   fillRatio: number // Between 0-1

@@ -5,7 +5,7 @@ import { Button, FlatList, View } from 'react-native'
 import { MovieListItem } from './MovieListItem'
 
 // Styles
-import styles from './styles/MovieList.scss'
+import { styles } from './styles/MovieList.styles'
 
 // Types
 import { type TransformedMovieData } from '../@types/transformedResponses'

@@ -1,0 +1,5 @@
+export { MovieDirector } from './MovieDirector'
+export { MoviePlot } from './MoviePlot'
+export { MovieYear } from './MovieYear'
+export { MoviePosterContainer } from './MoviePosterContainer'
+export { StarRatingsContainer } from './StarRatingsContainer'

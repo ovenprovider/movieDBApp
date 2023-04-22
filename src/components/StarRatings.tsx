@@ -8,7 +8,7 @@ import { Star } from './Star'
 import { convertNumberToArray } from '../utils'
 
 // Styles
-import styles from './styles/StarRatings.scss'
+import { styles } from './styles/StarRatings.styles'
 
 type Props = {
   size: number

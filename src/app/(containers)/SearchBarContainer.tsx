@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 // Components
-import { Dropdown, SearchIcon, SearchBar } from '../../components'
+import { Dropdown, SearchBar } from '../../components'
+
+// Icons
+import { SearchIcon } from '../../components/icons'
 
 // Styles
 import { styles } from './(styles)/searchBarContainer.styles'

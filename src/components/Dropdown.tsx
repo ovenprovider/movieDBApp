@@ -3,7 +3,7 @@ import { Platform } from 'react-native'
 import DropDownPicker, { type DropDownPickerProps } from 'react-native-dropdown-picker'
 
 // Styles
-import styles from './styles/Dropdown.scss'
+import { styles } from './styles/Dropdown.styles'
 
 // Can't type this since there's some weird issue
 export const Dropdown: React.FC<DropDownPickerProps<any>> = ({ items, value, setValue, setOpen, open }) => {

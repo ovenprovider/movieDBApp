@@ -2,6 +2,10 @@
 import { useState } from 'react'
 import { View, Text } from 'react-native'
 
+// Containers
+import { SearchBarContainer } from './(containers)/SearchBarContainer'
+import { MovieListContainer } from './(containers)/MovieListContainer'
+
 // Utils
 import { fetchData, omdbSearchURL, transformMovieData } from '../utils'
 
@@ -10,10 +14,6 @@ import { styles } from './(styles)/index.styles'
 
 // Types
 import { type SearchType, type MoviesSearchResponse, type TransformedMovieData } from '../@types'
-
-// Containers
-import { SearchBarContainer } from './(containers)/SearchBarContainer'
-import { MovieListContainer } from './(containers)/MovieListContainer'
 
 const GENERIC_ERROR_MESSAGE = 'No results, please try another search term.'
 

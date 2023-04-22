@@ -5,14 +5,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 // Components
 import { MovieList } from '../../components'
 
-// Styles
-import styles from './(styles)/index.scss'
+// Contexts
+import { FavouritesContext, type FavouritesContextType } from '../../contexts'
 
 // Types
 import { type TransformedMovieData } from '../../@types'
 
-// Contexts
-import { FavouritesContext, type FavouritesContextType } from '../../contexts'
+// Styles
+import { styles } from './(styles)/index.styles'
 
 const NUMBER_OF_COLUMNS_TO_DISPLAY = 2
 

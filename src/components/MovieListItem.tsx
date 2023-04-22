@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { useRouter } from 'expo-router'
 
 // Components
-import { HeartIcon } from './HeartIcon'
+import { HeartIcon } from './icons/HeartIcon'
 
 // Styles
-import styles from './styles/MovieListItem.scss'
+import { styles } from './styles/MovieListItem.styles'
 
 type Props = {
   movieTitle: string
