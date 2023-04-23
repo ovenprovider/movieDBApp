@@ -9,7 +9,7 @@ import { Dropdown, SearchBar } from '../../components'
 import { SearchIcon } from '../../components/icons'
 
 // Styles
-import { styles } from './(styles)/searchBarContainer.styles'
+import { styles } from './(styles)/SearchBarContainer.styles'
 
 // Types
 import { type SearchType } from '../../@types'
